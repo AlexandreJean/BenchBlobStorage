@@ -13,9 +13,9 @@ for i in `seq -w 000 004`
 do
 	stg="STG$i"
 	sas="SAS$i"
-	host1=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/Validationscripts/execute/nodelist.txt | tail -1`
+	host1=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/BenchBlobStorage/execute/nodelist.txt | tail -1`
 	IPidx=$(( $IPidx + 1 ))
-	host2=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/Validationscripts/execute/nodelist.txt | tail -1`
+	host2=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/BenchBlobStorage/execute/nodelist.txt | tail -1`
 
 	##Loop on number of files to read from the storage accounts :
 	THR=0

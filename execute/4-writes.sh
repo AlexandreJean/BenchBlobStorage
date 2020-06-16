@@ -16,11 +16,11 @@ do
 	stg="STG$i"
 	sas="SAS$i"
 	## Host1 is the first node for a storage account, starts at first line 
-	host1=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/Validationscripts/execute/nodelist.txt | tail -1`
+	host1=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/BenchBlobStorage/execute/nodelist.txt | tail -1`
 	## If you wish to have 2 x nodes per storage account then increase by 1, if you want more nodes, incread by more than 1
 	IPidx=$(( $IPidx + 1 ))
 	## host2 is the last node for a storage account, ends at first line + IPidx
-	host2=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/Validationscripts/execute/nodelist.txt | tail -1`
+	host2=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/BenchBlobStorage/execute/nodelist.txt | tail -1`
 
 	##Loop on number of files to upload to the storage accounts :
 	## We created a single large file, but we can upload it multiple times to the storage accounts so reads will be parallelized.
