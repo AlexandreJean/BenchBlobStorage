@@ -41,15 +41,6 @@ echo "#### Starting Grafana services:"
 systemctl start grafana-server
 systemctl enable grafana-server
 
-#echo "#### Opening InfluxDB firewalld port 80(83|86):"
-#sudo firewall-cmd --permanent --zone=public --add-port=8086/tcp
-#sudo firewall-cmd --permanent --zone=public --add-port=8083/tcp
-#echo "#### Opening Grafana firewalld port 3000:"
-#sudo firewall-cmd --permanent --zone=public --add-port=3000/tcp
-#echo "#### Reload firewall rules:"
-#sudo firewall-cmd --reload
-
-
 echo "#### Configuration of influxDB User and DB:"
 curl "http://localhost:8086/query" --data-urlencode "q=CREATE USER admindb WITH PASSWORD '$GRAFANA_PASSWD' WITH ALL PRIVILEGES"
 curl "http://localhost:8086/query" --data-urlencode "q=CREATE USER $GRAFANA_USER WITH PASSWORD '$GRAFANA_PASSWD'"

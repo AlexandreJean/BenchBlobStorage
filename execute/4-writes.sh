@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change this with the correct path where you stored your SAS.keys file during storage account creation
-. /mnt/exports/shared/home/husiana/Validationscripts/master/SAS.keys 
+. /mnt/exports/shared/home/husiana/BenchBlobStorage/master/SAS.keys 
 
 ID=`/usr/sbin/ifconfig eth0 | awk '{if ($0 ~ /inet /) {print $2}}' | cut -d "." -f 3,4`
 ID2=`echo $ID | sed 's/\./-/'`
@@ -10,7 +10,7 @@ SRC="/mnt/resource/"
 IPidx=1
 
 ##Loop on Storage accounts :
-# HEre I'm looping on the 5 storage accounts I have created earlier
+# I'm looping on the 5 storage accounts I have created earlier
 for i in `seq -w 000 004`
 do
 	stg="STG$i"
