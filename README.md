@@ -156,7 +156,7 @@ pdsh -f `cat nodelist.txt | wc -l` -w ^htcnodes.txt sudo ~/BenchBlobStorage/exec
 **8.** Now you can start the reads, we will read the 2 files in parallel (with default settings) to improve bandwidth so each nodes will not be limited by local SSD throughput to read from ADLS. 2 x azcopy will run in // using taskset and the tool parallel. Each will use 4 x cores.
 - I recommend to run it once using pdsh so you know how long it takes to read the 2 files per node, then you can re-run it with srun specifying a deadline.
 <pre>
-time pdsh -f `cat nodelist.txt | wc -l` -w ^htcnodes.txt sudo ~/Validationscripts/execute/5-reads.sh
+time pdsh -f `cat nodelist.txt | wc -l` -w ^htcnodes.txt sudo ~/BenchBlobStorage/execute/5-reads.sh
 ...
 real    2m5.118s
 user    0m2.088s
@@ -179,7 +179,7 @@ PART="htc"
 
 ## Run the show from client nodes :
 <pre>
-srun -l -p $PART -w $NODELST -N $NODECNT -t "2:30" --cpus-per-task $CPUPTASK -o ~/Validationscripts/execute/logs/readlogs.txt sudo ~/BenchBlobStorage/execute/5-reads.sh
+srun -l -p $PART -w $NODELST -N $NODECNT -t "2:30" --cpus-per-task $CPUPTASK -o ~/BenchBlobStorage/execute/logs/readlogs.txt sudo ~/BenchBlobStorage/execute/5-reads.sh
 </pre>
 
 - Now you can check logs (readlogs.txt) to see if threads were killed before to be completed and reduce the time it runs to ensure all threads are still runing when killed. 
