@@ -3,7 +3,7 @@
 GRAFANA_USER="admin"
 GRAFANA_PASSWD="P@sswOrd4242020"
 
-echo "### Config repo for InfluxDB:"
+echo "## Config repo for InfluxDB:"
 cat <<EOF | tee /etc/yum.repos.d/influxdb.repo
 [influxdb]
 name = InfluxDB Repository - RHEL \$releasever
