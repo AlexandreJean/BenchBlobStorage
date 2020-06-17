@@ -37,7 +37,6 @@ chmod 600 ${admin_user}_id_rsa*
 cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 
-ls -l config.json
 ls -l scripts/*.sh
 
 echo -e "azhpc-build :"
