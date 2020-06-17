@@ -34,13 +34,13 @@ cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
 rm config.json
-ln -s ../config/config.slurmcluster.json config.json
+cp ../config/config.slurmcluster.json config.json
 rm -f pipeline.yml
 rm -f readme.md
 ls -lart
 
 echo -e "azhpc-build :"
-azhpc-build
+azhpc-build -c config.json
 
 echo cleaning RG $resource_group
 az group delete -g $resource_group -y
