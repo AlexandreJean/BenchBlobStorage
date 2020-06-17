@@ -1,5 +1,5 @@
 {
-    "resource_group": "BlobBenchmarks",
+    "resource_group": "Blob-Benchmarks",
     "numSTGAccounts": "2",
     "key_vault": "devopsvaulthusiana",
     "location": "westeurope",
@@ -7,7 +7,6 @@
     "subnet_hpc": "admin",
     "admin_user":"hpcadmin",
     "spn_name": "devopshusiana",
-    "cluster_name": "slurm-blobbenchs",
     "install_from": "headnode",
     "sku_list": ["Standard_HB120rs_v2", "Standard_HC44rs", "Standard_HB60rs"]
 }
