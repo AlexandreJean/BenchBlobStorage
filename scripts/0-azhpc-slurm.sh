@@ -24,10 +24,12 @@ echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
 
+cp -a azurehpc/tree/master/examples/slurm_autoscale $workdir
+
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-
+ls -lart
 
 #echo cleaning RG $resource_group
 #az group delete -g $resource_group -y
