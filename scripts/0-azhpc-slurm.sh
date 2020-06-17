@@ -50,6 +50,7 @@ echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
 
 ls -lart
+ls -lR azhpc_install_config.slurmcluster/
 
 echo cleaning RG $resource_group
 az group delete -g $resource_group -y
