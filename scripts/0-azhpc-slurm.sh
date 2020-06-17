@@ -30,6 +30,8 @@ cp -a azurehpc/examples/slurm_autoscale/scripts $workdir
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
+rm scripts/config.json
+ln -s scripts/config.json config/config.slurmcluster.json
 ls -lart scripts/
 
 
