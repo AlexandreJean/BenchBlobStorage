@@ -1,6 +1,7 @@
 {
     "resource_group": "Blob-Benchmarks",
     "numSTGAccounts": "2",
+    "numIONodes": "4",
     "key_vault": "devopsvaulthusiana",
     "location": "westeurope",
     "vnet": "vnetbenchs",

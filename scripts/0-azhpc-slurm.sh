@@ -24,10 +24,11 @@ echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
 
+# ADD numIONodes to it:
 echo -e "Config azhpc" 
 azhpc-init -c ./config \
           -d slurmcluster \
-          -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
+          -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from,instances=$numIONodes
 
 cd slurmcluster
 cp -f ../${admin_user}_id_rsa* .
@@ -47,8 +48,9 @@ az network nsg rule create -g $resource_group --nsg-name ${install_from}_nsg --a
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mAdd Public fqdn to vault (grafanaurl)\033[0m"
 fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
 az keyvault secret set --vault-name $key_vault --name grafanaurl --value $fqdn 2>&1>/dev/null
-privip=$(az network nic show -g $resource_group --name grafana_nic | jq -r ".ipConfigurations[0].privateIpAddress")
+privip=$(az network nic show -g $resource_group --name ${install_from}_nic | jq -r ".ipConfigurations[0].privateIpAddress")
 az keyvault secret set --vault-name $key_vault --name grafanaprivip --value $privip 2>&1>/dev/null
+password=$(az keyvault secret show --name grafanapwd --vault-name devopsvaulthusiana)
 
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mSo now you can access it:\033[0m"
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mURL\033[0m : "http://$fqdn:3000
