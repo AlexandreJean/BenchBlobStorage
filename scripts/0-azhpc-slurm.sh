@@ -22,18 +22,21 @@ fi
 
 echo -e "Install azhpc"
 #init az-hpc
+
 . ./azurehpc/install.sh
 
 echo -e "Config azhpc" 
 echo -e "vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from"
 azhpc-init -c ./config \
-          -d  $workdir \
+          -d $workdir \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
 
 
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
+cp -a ../azurehpc/scripts .
+chmod +x scripts/*.sh
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
