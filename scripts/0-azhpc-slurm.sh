@@ -30,7 +30,8 @@ cp -a azurehpc/examples/slurm_autoscale/scripts $workdir
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-ls -lart
+ls -lart scripts/
+
 
 #echo cleaning RG $resource_group
 #az group delete -g $resource_group -y

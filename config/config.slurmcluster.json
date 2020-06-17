@@ -1,0 +1,150 @@
+{
+    "location": "variables.location",
+    "resource_group": "variables.resource_group",
+    "install_from": "variables.install_from",
+    "admin_user": "variables.admin_user",
+    "vnet": {
+        "name": "variables.vnet",
+        "resource_group": "variables.resource_group",
+        "address_prefix": "10.3.0.0/20",
+        "subnets": {
+          "admin": "10.3.1.0/24",
+          "storage": "10.3.3.0/24",
+          "compute": "10.3.4.0/24",
+          "GatewaySubnet": "10.3.5.0/24"
+        }
+    },
+    "variables": {
+        "location": "",
+        "resource_group": "",
+        "vm_type": "Standard_D4s_v3",
+        "compute_vm_type": "Standard_HB60rs",
+        "image": "OpenLogic:CentOS:7.6:latest",
+        "hpc_image": "OpenLogic:CentOS:7.6:latest",
+        "key_vault": "",
+        "admin_user": "",
+        "vnet": "",
+        "install_from": "",
+        "instances": 2
+    },
+    "resources": {
+        "headnode": {
+            "type": "vm",
+            "vm_type": "variables.vm_type",
+            "accelerated_networking": true,
+            "public_ip": true,
+            "image": "variables.image",
+            "subnet": "admin",
+            "tags": [
+                "disable-selinux",
+                "grafana",
+                "cndefault",
+                "munge",
+                "azcli",
+                "nfsserver",
+                "slurmserver",
+                "localuser"
+            ]
+        },
+        "compute": {
+            "type": "slurm_partition",
+            "vm_type": "variables.compute_vm_type",
+            "instances": "variables.instances",
+            "availability_set": "compute",
+            "image": "variables.hpc_image",
+            "subnet": "admin",
+            "tags": [
+               "nfsclient",
+               "cndefault",
+               "localuser",
+               "munge",
+               "slurmclient",
+               "disable-selinux"
+            ]
+         }
+    },
+    "install": [
+        {
+            "script": "disable-selinux.sh",
+            "tag": "disable-selinux",
+            "sudo": true
+        },
+        {
+            "script": "install-grafana.sh",
+            "tag": "grafana",
+            "sudo": true,
+            "args": [
+                "variables.admin_user",
+                "secret.{{variables.key_vault}}.grafanapwd"
+             ],
+             "deps" : ["telegraf_dashboard.json"]
+        },
+        {
+          "script": "cndefault.sh",
+          "tag": "cndefault",
+          "sudo": true
+        },
+        {
+          "script": "install-azcli.sh",
+          "tag": "azcli",
+          "sudo": true
+        },
+        {
+          "script": "nfsserver.sh",
+          "tag": "nfsserver",
+          "sudo": true
+        },
+        {
+          "script": "nfsclient.sh",
+          "args": [
+             "headnode"
+          ],
+          "tag": "nfsclient",
+          "sudo": true
+        },
+        {
+          "script": "localuser.sh",
+          "args": [
+             "headnode"
+          ],
+          "tag": "localuser",
+          "sudo": true
+        },
+        {
+          "script": "munge.sh",
+          "tag": "munge",
+          "args": [
+             "abcdefghijklmnopqrstuvwxyz123456"
+          ],
+          "sudo": true
+        },
+        {
+          "script": "slurmctl.sh",
+          "tag": "slurmserver",
+          "deps": [
+           "suspend.sh",
+           "resume.sh",
+           "hpcadmin_id_rsa",
+           "hpcadmin_id_rsa.pub",
+           "config.json"
+          ],
+          "sudo": true
+        },
+        {
+          "script": "slurmpartition.sh",
+          "tag": "slurmserver",
+          "args": [
+             "compute",
+             "variables.instances",
+             "variables.vm_type",
+             "variables.location"
+          ],
+          "sudo": true
+        },
+        {
+          "script": "slurmd.sh",
+          "tag": "slurmclient",
+          "sudo": true
+        }
+    ]
+}
