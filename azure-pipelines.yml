@@ -10,10 +10,21 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'devopshusiana'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      # Clone Azure-hpc
+      got clone https://github.com/Azure/azurehpc.git
+      # retrieve rsa-keys from KeyVault
+      az keyvault secret download --name idrsadevopspub --vault-name devopsvaulthusiana -f hpcadmin_id_rsa.pub
+      az keyvault secret download --name idrsadevops --vault-name devhopsvaulthusiana -f hpcadmin_id_rsa
+      # Install the SLURM-Cluster
+      /bin/bash ./0-azhpc-slurm.sh
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+#- script: |
+#    echo Add other tasks to build, test, and deploy your project.
+#    echo See https://aka.ms/yaml
+#  displayName: 'Run a multi-line script'
