@@ -2,12 +2,12 @@
     "resource_group": "Blob-Benchmarks",
     "numSTGAccounts": "2",
     "numIONodes": "4",
+    "ionodestype": "Standard_HB60rs",
     "key_vault": "devopsvaulthusiana",
     "location": "westeurope",
     "vnet": "vnetbenchs",
     "subnet_hpc": "admin",
     "admin_user":"hpcadmin",
     "spn_name": "devopshusiana",
-    "install_from": "headnode",
-    "sku_list": ["Standard_HB120rs_v2", "Standard_HC44rs", "Standard_HB60rs"]
+    "install_from": "headnode"
 }

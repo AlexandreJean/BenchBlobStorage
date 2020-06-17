@@ -28,7 +28,7 @@ echo -e "Install azhpc"
 echo -e "Config azhpc" 
 azhpc-init -c ./config \
           -d slurmcluster \
-          -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from,instances=$numIONodes
+          -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from,instances=$numIONodes,compute_vm_type=$ionodestype
 
 cd slurmcluster
 cp -f ../${admin_user}_id_rsa* .
@@ -37,7 +37,6 @@ cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 chmod +x scripts/*.sh
 cp config.slurmcluster.json scripts/
-ls -la scripts/slurm*.sh
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
@@ -56,8 +55,7 @@ echo -e "\e[32m$(date +'[%F %T]') \e[1;32mSo now you can access it:\033[0m"
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mURL\033[0m : "http://$fqdn:3000
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mUSR\033[0m : "admin
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mPWD\033[0m : "$password
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mPWD\033[0m : "ssh -i .ssh/id_rsa $admin_user@$fqdn
 
-#echo cleaning RG $resource_group
-#az group delete -g $resource_group -y
 echo -e "\e[1;34m script done, ciao bye\033[0m"
 echo "------"
