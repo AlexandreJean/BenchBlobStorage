@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+#set -e
 
 # keep track of the last executed command
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
@@ -48,6 +48,8 @@ ls -la scripts/slurm*.sh
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
+
+ls -lart
 
 echo cleaning RG $resource_group
 az group delete -g $resource_group -y
