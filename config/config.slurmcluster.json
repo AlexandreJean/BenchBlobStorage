@@ -70,16 +70,6 @@
             "sudo": true
         },
         {
-            "script": "install-grafana.sh",
-            "tag": "grafana",
-            "sudo": true,
-            "args": [
-                "variables.admin_user",
-                "secret.{{variables.key_vault}}.grafanapwd"
-             ],
-             "deps" : ["telegraf_dashboard.json"]
-        },
-        {
           "script": "cndefault.sh",
           "tag": "cndefault",
           "sudo": true
