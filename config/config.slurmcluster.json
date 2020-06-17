@@ -24,8 +24,7 @@
         "key_vault": "",
         "admin_user": "",
         "vnet": "",
-        "install_from": "",
-        "instances": 2
+        "install_from": ""
     },
     "resources": {
         "headnode": {
@@ -49,7 +48,7 @@
         "compute": {
             "type": "slurm_partition",
             "vm_type": "variables.compute_vm_type",
-            "instances": "variables.instances",
+            "instances": "2",
             "availability_set": "compute",
             "image": "variables.hpc_image",
             "subnet": "admin",
