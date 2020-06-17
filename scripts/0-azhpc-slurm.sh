@@ -23,17 +23,21 @@ fi
 echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
+echo post install :
+ls -lart
 
 echo -e "Config azhpc" 
 echo -e "vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from"
 azhpc-init -c ./config \
           -d testdir \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
-
+echo post init :
+ls -lart
 
 cd testdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
+echo in testdir now
 ls -lart
 
 cp -a ../azurehpc/scripts .
