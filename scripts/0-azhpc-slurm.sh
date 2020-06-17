@@ -39,7 +39,7 @@ ls -lart ../azurehpc/
 cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 rm -f scripts/config.json
-ln -s config.slurmcluster.json config/config.json
+ln -s config.slurmcluster.json scripts/config.json
 ls -lart
 ls -lart scripts
 
