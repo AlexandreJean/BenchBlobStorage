@@ -23,23 +23,15 @@ fi
 echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
-echo post install :
-ls -lart
 
 echo -e "Config azhpc" 
-echo -e "vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from"
 azhpc-init -c ./config \
           -d slurmcluster \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
-echo post init :
-ls -lart
 
 cd slurmcluster
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-echo in $workdir now
-ls -lart
-
 cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 chmod +x scripts/*.sh
@@ -48,9 +40,6 @@ ls -la scripts/slurm*.sh
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
-
-ls -lart
-ls -lR azhpc_install_config.slurmcluster/
 
 #echo cleaning RG $resource_group
 #az group delete -g $resource_group -y

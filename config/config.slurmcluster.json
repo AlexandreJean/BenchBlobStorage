@@ -40,7 +40,8 @@
                 "azcli",
                 "nfsserver",
                 "slurmserver",
-                "localuser"
+                "localuser",
+                "grafana"
             ]
         },
         "compute": {
@@ -64,6 +65,16 @@
             "script": "disable-selinux.sh",
             "tag": "disable-selinux",
             "sudo": true
+        },
+        {
+            "script": "install-grafana.sh",
+            "tag": "grafana",
+            "sudo": true,
+            "args": [
+                "variables.admin_user",
+                "secret.{{variables.key_vault}}.grafanapwd"
+             ],
+             "deps" : ["telegraf_dashboard.json"]
         },
         {
           "script": "cndefault.sh",
@@ -95,6 +106,14 @@
           ],
           "tag": "localuser",
           "sudo": true
+        },
+        {
+            "script": "munge.sh",
+            "tag": "munge",
+            "args": [
+               "abcdefghijklmnopqrstuvwxyz123456"
+            ],
+            "sudo": true
         },
         {
           "script": "slurmctl.sh",
