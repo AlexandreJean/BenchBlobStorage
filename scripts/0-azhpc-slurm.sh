@@ -36,7 +36,7 @@ ln -s ../config/config.slurmcluster.json scripts/config.json
 
 echo -e "Config azhpc" 
 azhpc-init -c ./config \
-          -d $workdir \
+          -d slurmcluster \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
 
 
