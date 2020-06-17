@@ -24,7 +24,7 @@ echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
 
-cp -a azurehpc/examples/slurm_autoscale/ $workdir
+cp -a azurehpc/examples/slurm_autoscale/* $workdir
 
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
