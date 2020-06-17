@@ -33,13 +33,14 @@ cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
 rm scripts/config.json
 ln -s ../config/config.slurmcluster.json scripts/config.json
+cd ..
 
 echo -e "Config azhpc" 
-azhpc-init -c .\
-          -d slurmcluster \
+azhpc-init -c ./azurehpc/examples/slurm_autoscale \
+          -d  $workdir \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
 
-
+ls -lart $workdir
 
 echo cleaning RG $resource_group
 az group delete -g $resource_group -y

@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: AzureCLI@2
+- task: Cluster Build
   inputs:
     azureSubscription: 'devopshusiana'
     scriptType: 'bash'
