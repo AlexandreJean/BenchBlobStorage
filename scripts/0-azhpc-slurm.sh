@@ -26,7 +26,7 @@ echo -e "Install azhpc"
 
 echo -e "Config azhpc" 
 echo -e "vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from"
-azhpc-init -c ./azurehpc/examples/slurm_autoscale \
+azhpc-init -c ./config \
           -d  $workdir \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from
 
@@ -34,10 +34,6 @@ azhpc-init -c ./azurehpc/examples/slurm_autoscale \
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-rm config.json
-cp ../config/config.slurmcluster.json config.json
-rm -f pipeline.yml
-rm -f readme.md
 ls -lart
 ls -lart scripts
 
