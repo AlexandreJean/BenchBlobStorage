@@ -41,6 +41,20 @@ ls -la scripts/slurm*.sh
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
 
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mOpen port 3000\033[0m"
+az network nsg rule create -g $resource_group --nsg-name ${install_from}_nsg --access allow --priority 3000 --name grafana --description "Grafana Web" --source-port-range '*' --destination-port-range 3000 --destination-address-prefixes '*' --protocol Tcp 2>&1>/dev/null
+
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mAdd Public fqdn to vault (grafanaurl)\033[0m"
+fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
+az keyvault secret set --vault-name $key_vault --name grafanaurl --value $fqdn 2>&1>/dev/null
+privip=$(az network nic show -g $resource_group --name grafana_nic | jq -r ".ipConfigurations[0].privateIpAddress")
+az keyvault secret set --vault-name $key_vault --name grafanaprivip --value $privip 2>&1>/dev/null
+
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mSo now you can access it:\033[0m"
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mURL\033[0m : "http://$fqdn:3000
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mUSR\033[0m : "admin
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mPWD\033[0m : "$password
+
 #echo cleaning RG $resource_group
 #az group delete -g $resource_group -y
 echo -e "\e[1;34m script done, ciao bye\033[0m"
