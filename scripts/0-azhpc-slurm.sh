@@ -52,7 +52,7 @@ azhpc-build -c config.slurmcluster.json
 ls -lart
 ls -lR azhpc_install_config.slurmcluster/
 
-echo cleaning RG $resource_group
-az group delete -g $resource_group -y
+#echo cleaning RG $resource_group
+#az group delete -g $resource_group -y
 echo -e "\e[1;34m script done, ciao bye\033[0m"
 echo "------"
