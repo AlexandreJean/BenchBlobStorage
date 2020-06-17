@@ -34,11 +34,11 @@ azhpc-init -c ./config \
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-cp -a ../azurehpc/scripts/*.sh .
-cp -a ../azurehpc/examples/slurm_autoscale/scripts/* .
+cp -a ../azurehpc/scripts .
+cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 
 ls -l config.json
-ls -l *.sh
+ls -l scripts/*.sh
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
