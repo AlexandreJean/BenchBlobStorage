@@ -25,6 +25,7 @@ echo -e "Install azhpc"
 . ./azurehpc/install.sh
 
 echo Copy slurm scripts directory
+cp -a azurehpc/scripts $workdir
 cp -a azurehpc/examples/slurm_autoscale/scripts $workdir
 
 ls -lart config/
