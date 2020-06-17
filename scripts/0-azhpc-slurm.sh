@@ -39,6 +39,7 @@ cp ../config/config.slurmcluster.json config.json
 rm -f pipeline.yml
 rm -f readme.md
 ls -lart
+ls -lart scripts
 
 echo -e "azhpc-build :"
 azhpc-build -c config.json
