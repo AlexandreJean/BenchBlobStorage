@@ -34,11 +34,13 @@ azhpc-init -c ./config \
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
+cp -a ../azurehpc/scripts .
+cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 ls -lart
 ls -lart scripts
 
 echo -e "azhpc-build :"
-azhpc-build -c config.json
+azhpc-build -c config.slurmcluster.json
 
 echo cleaning RG $resource_group
 az group delete -g $resource_group -y
