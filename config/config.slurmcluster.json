@@ -39,6 +39,7 @@
                 "cndefault",
                 "azcli",
                 "nfsserver",
+                "munge",
                 "slurmserver",
                 "localuser",
                 "grafana"
