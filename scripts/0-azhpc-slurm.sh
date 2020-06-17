@@ -24,7 +24,12 @@ echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
 
+echo Copy slurm dir and clean up sources
 cp -a azurehpc/examples/slurm_autoscale/* $workdir
+rm -f $workdir/readme.md
+rm -f $workdir/config.json
+rm -f $workdir/pipeline.yml
+
 
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
