@@ -56,7 +56,8 @@
                "cndefault",
                "localuser",
                "slurmclient",
-               "disable-selinux"
+               "disable-selinux",
+               "telegraf"
             ]
          }
     },
@@ -71,6 +72,17 @@
             "tag": "grafana",
             "sudo": true,
             "args": [
+                "variables.admin_user",
+                "secret.{{variables.key_vault}}.grafanapwd"
+             ],
+             "deps" : ["telegraf_dashboard.json"]
+        },
+        {
+            "script": "install-telegraf.sh",
+            "tag": "telegraf",
+            "sudo": true,
+            "args": [
+                "variables.install_from",
                 "variables.admin_user",
                 "secret.{{variables.key_vault}}.grafanapwd"
              ],
