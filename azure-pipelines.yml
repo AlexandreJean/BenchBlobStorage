@@ -19,12 +19,12 @@ steps:
       # Clone Azure-hpc
       git clone https://github.com/Azure/azurehpc.git
       # retrieve rsa-keys from KeyVault
-      echo rsapub
+      echo Fetching rsapub
       az keyvault secret download --name idrsadevopspub --vault-name devopsvaulthusiana -f hpcadmin_id_rsa.pub
-      echo rsapriv
+      echo Fetching rsapriv
       az keyvault secret download --name idrsadevops --vault-name devopsvaulthusiana -f hpcadmin_id_rsa
       # Install the SLURM-Cluster
-      echo Run the script
+      echo Run the first script
       /bin/bash ./scripts/0-azhpc-slurm.sh
 
 #- script: |
