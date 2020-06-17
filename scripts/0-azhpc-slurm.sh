@@ -34,6 +34,8 @@ azhpc-init -c ./config \
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
+pwd
+ls -lart ../azurehpc/
 cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 ls -lart
