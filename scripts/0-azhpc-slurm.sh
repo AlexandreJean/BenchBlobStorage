@@ -41,7 +41,7 @@ ln -s config.slurmcluster.json scripts/config.json
 cd scripts
 
 echo -e "azhpc-build :"
-azhpc-build -c config.slurmcluster.json
+azhpc-build -c config.json
 
 echo cleaning RG $resource_group
 az group delete -g $resource_group -y
