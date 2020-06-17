@@ -61,7 +61,7 @@
     },
     "install": [
         {
-            "script": "scripts/disable-selinux.sh",
+            "script": "disable-selinux.sh",
             "tag": "disable-selinux",
             "sudo": true
         },
