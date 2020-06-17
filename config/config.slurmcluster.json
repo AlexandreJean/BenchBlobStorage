@@ -61,27 +61,27 @@
     },
     "install": [
         {
-            "script": "disable-selinux.sh",
+            "script": "scripts/disable-selinux.sh",
             "tag": "disable-selinux",
             "sudo": true
         },
         {
-          "script": "cndefault.sh",
+          "script": "scripts/cndefault.sh",
           "tag": "cndefault",
           "sudo": true
         },
         {
-          "script": "install-azcli.sh",
+          "script": "scripts/install-azcli.sh",
           "tag": "azcli",
           "sudo": true
         },
         {
-          "script": "nfsserver.sh",
+          "script": "scripts/nfsserver.sh",
           "tag": "nfsserver",
           "sudo": true
         },
         {
-          "script": "nfsclient.sh",
+          "script": "scripts/nfsclient.sh",
           "args": [
              "headnode"
           ],
@@ -89,7 +89,7 @@
           "sudo": true
         },
         {
-          "script": "localuser.sh",
+          "script": "scripts/localuser.sh",
           "args": [
              "headnode"
           ],
@@ -109,7 +109,7 @@
           "sudo": true
         },
         {
-          "script": "slurmpartition.sh",
+          "script": "scripts/slurmpartition.sh",
           "tag": "slurmserver",
           "args": [
              "compute",
@@ -120,7 +120,7 @@
           "sudo": true
         },
         {
-          "script": "slurmd.sh",
+          "script": "scripts/slurmd.sh",
           "tag": "slurmclient",
           "sudo": true
         }
