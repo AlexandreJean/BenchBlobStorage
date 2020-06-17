@@ -41,6 +41,7 @@
                 "azcli",
                 "nfsserver",
                 "munge",
+                "slurmpartition",
                 "slurmserver",
                 "localuser",
                 "grafana"
@@ -143,7 +144,7 @@
         },
         {
           "script": "slurmpartition.sh",
-          "tag": "slurmserver",
+          "tag": "slurmpartition",
           "args": [
              "compute",
              "variables.instances",
