@@ -25,14 +25,14 @@ echo -e "Install azhpc"
 . ./azurehpc/install.sh
 
 echo Copy slurm scripts directory
-cp -a azurehpc/scripts $workdir
-cp -a azurehpc/examples/slurm_autoscale/scripts $workdir
+#cp -a azurehpc/scripts $workdir
+#cp -a azurehpc/examples/slurm_autoscale/scripts $workdir
 
 cd $workdir
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-rm scripts/config.json
-ln -s ../config/config.slurmcluster.json scripts/config.json
+#rm scripts/config.json
+#ln -s ../config/config.slurmcluster.json scripts/config.json
 cd ..
 
 echo -e "Config azhpc" 
