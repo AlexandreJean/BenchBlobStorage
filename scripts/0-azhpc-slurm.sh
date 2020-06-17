@@ -55,7 +55,7 @@ echo -e "\e[32m$(date +'[%F %T]') \e[1;32mSo now you can access it:\033[0m"
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mURL\033[0m : "http://$fqdn:3000
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mUSR\033[0m : "admin
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mPWD\033[0m : "$password
-echo -e "\e[32m$(date +'[%F %T]') \e[1;32mPWD\033[0m : "ssh -i .ssh/id_rsa $admin_user@$fqdn
+echo -e "\e[32m$(date +'[%F %T]') \e[1;32mSSH\033[0m : "ssh -i .ssh/id_rsa $admin_user@$fqdn
 
 echo -e "\e[1;34m script done, ciao bye\033[0m"
 echo "------"
