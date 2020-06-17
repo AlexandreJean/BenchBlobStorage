@@ -66,22 +66,22 @@
             "sudo": true
         },
         {
-          "script": "scripts/cndefault.sh",
+          "script": "cndefault.sh",
           "tag": "cndefault",
           "sudo": true
         },
         {
-          "script": "scripts/install-azcli.sh",
+          "script": "install-azcli.sh",
           "tag": "azcli",
           "sudo": true
         },
         {
-          "script": "scripts/nfsserver.sh",
+          "script": "nfsserver.sh",
           "tag": "nfsserver",
           "sudo": true
         },
         {
-          "script": "scripts/nfsclient.sh",
+          "script": "nfsclient.sh",
           "args": [
              "headnode"
           ],
@@ -89,7 +89,7 @@
           "sudo": true
         },
         {
-          "script": "scripts/localuser.sh",
+          "script": "localuser.sh",
           "args": [
              "headnode"
           ],
@@ -97,11 +97,11 @@
           "sudo": true
         },
         {
-          "script": "scripts/slurmctl.sh",
+          "script": "slurmctl.sh",
           "tag": "slurmserver",
           "deps": [
-           "scripts/suspend.sh",
-           "scripts/resume.sh",
+           "suspend.sh",
+           "resume.sh",
            "hpcadmin_id_rsa",
            "hpcadmin_id_rsa.pub",
            "config.slurmcluster.json"
@@ -109,7 +109,7 @@
           "sudo": true
         },
         {
-          "script": "scripts/slurmpartition.sh",
+          "script": "slurmpartition.sh",
           "tag": "slurmserver",
           "args": [
              "compute",
@@ -120,7 +120,7 @@
           "sudo": true
         },
         {
-          "script": "scripts/slurmd.sh",
+          "script": "slurmd.sh",
           "tag": "slurmclient",
           "sudo": true
         }
