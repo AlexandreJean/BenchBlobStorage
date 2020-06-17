@@ -36,9 +36,7 @@
             "subnet": "admin",
             "tags": [
                 "disable-selinux",
-                "grafana",
                 "cndefault",
-                "munge",
                 "azcli",
                 "nfsserver",
                 "slurmserver",
@@ -56,7 +54,6 @@
                "nfsclient",
                "cndefault",
                "localuser",
-               "munge",
                "slurmclient",
                "disable-selinux"
             ]
@@ -97,14 +94,6 @@
              "headnode"
           ],
           "tag": "localuser",
-          "sudo": true
-        },
-        {
-          "script": "munge.sh",
-          "tag": "munge",
-          "args": [
-             "abcdefghijklmnopqrstuvwxyz123456"
-          ],
           "sudo": true
         },
         {
