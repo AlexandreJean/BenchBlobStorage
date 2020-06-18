@@ -71,6 +71,11 @@
             "sudo": true
         },
         {
+            "script": "config.json",
+            "tag": "config",
+            "sudo": true
+        },
+        {
             "script": "install-grafana.sh",
             "tag": "grafana",
             "sudo": true,

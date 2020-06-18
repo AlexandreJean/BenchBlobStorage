@@ -37,10 +37,7 @@ cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 chmod +x scripts/*.sh
 cp config.slurmcluster.json config.json
-ls -l
-ls -l scripts/
-# ln -s scripts/config.slurmcluster.json scripts/config.json
-# ls -lart scripts/
+cp config.slurmcluster.json scripts/config.json
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
