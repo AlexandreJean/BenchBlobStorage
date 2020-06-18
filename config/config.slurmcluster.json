@@ -71,6 +71,16 @@
             "sudo": true
         },
         {
+            "script": "suspend.sh",
+            "tag": "slurmsuspend",
+            "sudo": true
+        },
+        {
+            "script": "resume.sh",
+            "tag": "slurmresume",
+            "sudo": true
+        },
+        {
             "script": "install-grafana.sh",
             "tag": "grafana",
             "sudo": true,
