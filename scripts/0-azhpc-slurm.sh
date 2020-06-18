@@ -34,10 +34,7 @@ cd slurmcluster
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
 cp -a ../azurehpc/scripts .
-cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 chmod +x scripts/*.sh
-cp config.slurmcluster.json config.json
-cp config.slurmcluster.json scripts/config.json
 
 echo -e "azhpc-build :"
 azhpc-build -c config.slurmcluster.json
