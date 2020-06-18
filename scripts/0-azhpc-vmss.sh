@@ -8,7 +8,7 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
 
-workdir=0-azhpc-slurm
+workdir=0-azhpc-vmss
 mkdir -p ./$workdir
 
 #create rg in my sub
@@ -27,17 +27,17 @@ echo -e "Install azhpc"
 # ADD numIONodes to it:
 echo -e "Config azhpc" 
 azhpc-init -c ./config \
-          -d slurmcluster \
+          -d vmsscluster \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from,instances=$numIONodes,compute_vm_type=$ionodestype
 
-cd slurmcluster
+cd vmsscluster
 cp -f ../${admin_user}_id_rsa* .
 chmod 600 ${admin_user}_id_rsa*
-cp -a ../azurehpc/scripts .
-chmod +x scripts/*.sh
+# cp -a ../azurehpc/scripts .
+# chmod +x scripts/*.sh
 
 echo -e "azhpc-build :"
-azhpc-build -c config.slurmcluster.json
+azhpc-build -c config.vmsscluster.json
 
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mOpen port 3000\033[0m"
 az network nsg rule create -g $resource_group --nsg-name ${install_from}_nsg --access allow --priority 3000 --name grafana --description "Grafana Web" --source-port-range '*' --destination-port-range 3000 --destination-address-prefixes '*' --protocol Tcp 2>&1>/dev/null
@@ -55,5 +55,4 @@ echo -e "\e[32m$(date +'[%F %T]') \e[1;32mUSR\033[0m : "admin
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mPWD\033[0m : "$password
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mSSH\033[0m : "ssh -i .ssh/id_rsa $admin_user@$fqdn
 
-echo -e "\e[1;34m script done, ciao bye\033[0m"
-echo "------"
+echo -e "\e[1;34m script done, bye\033[0m"

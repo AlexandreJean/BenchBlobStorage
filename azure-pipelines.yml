@@ -23,15 +23,15 @@ steps:
       az keyvault secret download --name idrsadevopspub --vault-name devopsvaulthusiana -f hpcadmin_id_rsa.pub
       echo Fetching rsapriv
       az keyvault secret download --name idrsadevops --vault-name devopsvaulthusiana -f hpcadmin_id_rsa
-      # Install the SLURM-Cluster
+      # Install the VMSS-Cluster
       echo Run the first script
-      /bin/bash ./scripts/0-azhpc-slurm.sh
+      /bin/bash ./scripts/0-azhpc-vmss.sh
 
 # TO THE END - deleting everything.
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'devopshusiana'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      /bin/bash ./scripts/10-delete-rg.sh
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'devopshusiana'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       /bin/bash ./scripts/10-delete-rg.sh
