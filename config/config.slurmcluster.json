@@ -71,16 +71,6 @@
             "sudo": true
         },
         {
-            "script": "suspend.sh",
-            "tag": "slurmsuspend",
-            "sudo": true
-        },
-        {
-            "script": "resume.sh",
-            "tag": "slurmresume",
-            "sudo": true
-        },
-        {
             "script": "install-grafana.sh",
             "tag": "grafana",
             "sudo": true,
@@ -148,7 +138,7 @@
            "resume.sh",
            "hpcadmin_id_rsa",
            "hpcadmin_id_rsa.pub",
-           "config.slurmcluster.json"
+           "config.json"
           ],
           "sudo": true
         },
