@@ -1,18 +1,11 @@
 {
-    /* Resource group name which will be created in your subscription */
     "resource_group": "Blob-Benchmarks",
-    /* Number of blob storage accounts which will be created in the resource group */
     "numSTGAccounts": "2",
-    /* Number of IO Nodes created to access the storage accoutnts */
     "numIONodes": "4",
-    /* Type of IO Nodes - you don't need to use HPC Nodes here, but take nodes with good Gbps to Azure */
     "ionodestype": "Standard_HB60rs",
-    /* Keyvault in your subscription */
     "key_vault": "devopsvaulthusiana",
-    /* Location & spn where to deploy the cluster */
     "location": "westeurope",
     "spn_name": "devopshusiana",
-    /* default values */
     "vnet": "vnetbenchs",
     "subnet_hpc": "admin",
     "admin_user":"hpcadmin",
