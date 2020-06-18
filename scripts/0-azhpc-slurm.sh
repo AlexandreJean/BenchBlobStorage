@@ -37,10 +37,11 @@ cp -a ../azurehpc/scripts .
 cp -a ../azurehpc/examples/slurm_autoscale/scripts .
 chmod +x scripts/*.sh
 cp config.slurmcluster.json scripts/
-ln -s config.slurmcluster.json scripts/config.json
+ln -s scripts/config.slurmcluster.json scripts/config.json
+ls -lart scripts/
 
 echo -e "azhpc-build :"
-azhpc-build -c config..slurmcluster.json
+azhpc-build -c config.slurmcluster.json
 
 
 echo -e "\e[32m$(date +'[%F %T]') \e[1;32mOpen port 3000\033[0m"
