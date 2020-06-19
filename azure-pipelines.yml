@@ -34,7 +34,7 @@ steps:
     inlineScript: |
       /bin/bash ./scripts/1-createSTGAccounts.sh
 
-# TO THE END - deleting everything.
+#TO THE END - deleting everything.
 # - task: AzureCLI@2
 #   inputs:
 #     azureSubscription: 'devopshusiana'

@@ -1,9 +1,10 @@
 #!/bin/bash
 
-NUMBER_STG_ACCOUNTs=20
-STG_ACCOUNT_PREFIX="benchtest2020"
-OUTPUT_File="SAS.keys"
-rg="benchtest"
+NUMBER_STG_ACCOUNTs=$1
+STG_ACCOUNT_PREFIX=$2
+rg=$3
+location=$4
+OUTPUT_File=$5
 
 for i in `seq -w 000 1 $((NUMBER_STG_ACCOUNTs - 1))`
 do

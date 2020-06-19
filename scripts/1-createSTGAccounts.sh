@@ -27,9 +27,12 @@ headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[
 echo run generate_SAS Here :
 ./master/generate_SAS.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
 
-echo right place ?
+echo right place master dir ?
 ls -l master/$OUTPutSAS
 cat master/$OUTPutSAS
+echo right place root dir ?
+ls -l $OUTPutSAS
+cat $OUTPutSAS
 
 if [ $(cat master/$OUTPutSAS | wc -l) -gt 0 ]
 then
