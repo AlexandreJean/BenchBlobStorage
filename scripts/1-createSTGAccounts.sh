@@ -7,6 +7,7 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 #read input json and create environment variables and source them
 echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
+SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 
 workdir=0-azhpc-vmss
 mkdir -p ./$workdir
@@ -21,8 +22,13 @@ then
 fi
 
 echo -e "Retrieve Public fqdn from vault"
-fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
+headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
+echo where am I ?
+ls -lart
 
-ssh -i .ssh/id_rsa $admin_user@$fqdn hostname
+echo run generate_SAS Here :
+
+echo ssh example :
+ssh $SSH_ARGS -i .ssh/hpcadmin_id_rsa $admin_user@$headnode_fqdn hostname
 
 echo -e "\e[1;34m script done, bye\033[0m"
