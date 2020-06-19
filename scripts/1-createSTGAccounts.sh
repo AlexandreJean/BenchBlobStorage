@@ -27,17 +27,14 @@ headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[
 echo run generate_SAS Here :
 ./master/generate_SAS.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
 
-echo right place master dir ?
-ls -l master/$OUTPutSAS
-cat master/$OUTPutSAS
 echo right place root dir ?
 ls -l $OUTPutSAS
 cat $OUTPutSAS
 
-if [ $(cat master/$OUTPutSAS | wc -l) -gt 0 ]
+if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
 then
-    echo scp master/$OUTPutSAS to headnode :
-    scp $SSH_ARGS -i ./hpcadmin_id_rsa master/$OUTPutSAS $admin_user@$headnode_fqdn:
+    echo scp $OUTPutSAS to headnode :
+    scp $SSH_ARGS -i ./hpcadmin_id_rsa $OUTPutSAS $admin_user@$headnode_fqdn:
 
     echo check presence of $OUTPutSAS on headnode :
     ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "ls -l $OUTPutSAS"

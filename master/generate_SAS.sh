@@ -25,6 +25,3 @@ do
 		echo STG Name ${STG_ACCOUNT_PREFIX}${i} not available
 	fi
 done
-
-ls -l $OUTPUT_File
-pwd
