@@ -22,7 +22,10 @@ then
 fi
 
 echo -e "Retrieve Public fqdn from vault"
-headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
+#headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
+headnode_fqdn=$(az vm show -n headnode \
+                  -g $resource_group \
+                  -d | jq -r ".fqdns")
 
 echo run generate_SAS Here :
 ./master/generate_SAS.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
