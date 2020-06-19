@@ -26,12 +26,19 @@ steps:
       # Install the VMSS-Cluster
       echo Run the first script
       /bin/bash ./scripts/0-azhpc-vmss.sh
-
-# TO THE END - deleting everything.
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'devopshusiana'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
-      /bin/bash ./scripts/10-delete-rg.sh
+      /bin/bash ./scripts/1-createSTGAccounts.sh
+
+# TO THE END - deleting everything.
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'devopshusiana'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       /bin/bash ./scripts/10-delete-rg.sh
