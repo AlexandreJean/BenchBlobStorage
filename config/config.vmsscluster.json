@@ -78,9 +78,7 @@
                 "variables.admin_user",
                 "secret.{{variables.key_vault}}.grafanapwd"
              ],
-             "deps" : [
-                  "telegraf_dashboard.json",
-                  "disksadls_v1.json"]
+             "deps" : ["telegraf_dashboard.json"]
         },
         {
             "script": "install-telegraf.sh",

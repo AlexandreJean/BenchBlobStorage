@@ -31,10 +31,10 @@ echo run generate_SAS Here :
 if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
 then
     echo scp $OUTPutSAS to headnode :
-    scp $SSH_ARGS -i ./hpcadmin_id_rsa $OUTPutSAS $admin_user@$headnode_fqdn:
+    scp $SSH_ARGS -i ./hpcadmin_id_rsa $OUTPutSAS $admin_user@$headnode_fqdn:/share/data/
 
     echo check presence of $OUTPutSAS on headnode :
-    ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "ls -l $OUTPutSAS"
+    ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "ls -l /share/data/$OUTPutSAS"
 else
     echo $OUTPutSAS is empty.
 fi

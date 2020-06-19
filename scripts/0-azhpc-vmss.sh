@@ -36,7 +36,6 @@ cp -f ../${admin_user}_id_rsa* .
 echo copy new scripts
 mkdir scripts
 cp ../execute/[123]-*.sh scripts/
-cp ../master/disksadls_v1.json scripts/
 
 echo -e "azhpc-build :"
 azhpc-build -c config.vmsscluster.json

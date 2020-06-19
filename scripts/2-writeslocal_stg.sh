@@ -14,10 +14,9 @@ headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[
 
 echo Finish config Grafana
 dashboard_dir=/var/lib/grafana/dashboards/
-ls -l
-ls -l scripts/
-
-scp $SSH_ARGS -i ./hpcadmin_id_rsa scripts/disksadls_v1.json $admin_user@$headnode_fqdn:$dashboard_dir
+scp $SSH_ARGS -i ./hpcadmin_id_rsa master/disksadls_v1.json $admin_user@$headnode_fqdn:$dashboard_dir
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "sudo systemctl stop grafana-server"
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "systemctl start grafana-server"
 
 # Create nodelist file :
 echo nodelist.txt creation
@@ -31,14 +30,19 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 echo What is /mnt/resource size ?
 disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /bin/df /mnt/resource" | awk '{if ($0 ~ /resource/) {print $5}}' | sort -n | head -1)
 filesz=$(($disksz*80/100/1024/1024))
-echo DISK Size = $disksz - Using only $filesz
+# Temporary
+filesz=$(($disksz*10/100/1024/1024))
+echo DISK Size = $disksz - Using only ${filesz}GB
 
 echo Create empty files in /mnt/resource directory
 # [hpcadmin@compute000001 resource]$ iozone -i 0 -i 1 -+n -r 1M -t 1 -s 1g -w | grep "Children see throughput for"
 #         Children see throughput for  1 initial writers  = 1680825.12 kB/sec
 #         Children see throughput for  1 readers          = 6907209.00 kB/sec
-echo ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'cd /mnt/resource; iozone -i 0 -i 1 -+n -r 1M -t 1 -s ${filesz}g -w | grep \"Children see throughput for\"'"
-
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'cd /mnt/resource; iozone -i 0 -i 1 -+n -r 1M -t 1 -s ${filesz}g -w | grep \"Children see throughput for\"'"
+
+# Copy write script to headnode
+scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/[45]*.sh $admin_user@$headnode_fqdn:/share/data/
+
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'
 
 echo -e "\e[1;34m script done, bye\033[0m"
