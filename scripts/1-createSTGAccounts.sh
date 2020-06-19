@@ -28,8 +28,8 @@ echo run generate_SAS Here :
 ./master/generate_SAS.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
 
 echo right place ?
-ls -l $OUTPutSAS
-cat $OUTPutSAS
+ls -l master/$OUTPutSAS
+cat master/$OUTPutSAS
 
 if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
 then
