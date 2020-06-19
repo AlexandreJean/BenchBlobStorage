@@ -28,12 +28,12 @@ headnode_fqdn=$(az vm show -n headnode \
                   -g $resource_group \
                   -d | jq -r ".fqdns")
 
+echo delete existing STG Accounts if any still present :
+./master/delete_STG.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
+rm -f $OUTPutSAS
+
 echo run generate_SAS Here :
 ./master/generate_SAS.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
-
-echo right place root dir ?
-ls -l $OUTPutSAS
-cat $OUTPutSAS
 
 if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
 then

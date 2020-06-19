@@ -30,11 +30,9 @@ azhpc-init -c ./config \
           -d vmsscluster \
           -v vnet=$vnet,location=$location,resource_group=$resource_group,admin_user=$admin_user,key_vault=$key_vault,install_from=$install_from,instances=$numIONodes,compute_vm_type=$ionodestype
 
+chmod 600 ${admin_user}_id_rsa*
 cd vmsscluster
 cp -f ../${admin_user}_id_rsa* .
-chmod 600 ${admin_user}_id_rsa*
-# cp -a ../azurehpc/scripts .
-# chmod +x scripts/*.sh
 
 echo -e "azhpc-build :"
 azhpc-build -c config.vmsscluster.json
