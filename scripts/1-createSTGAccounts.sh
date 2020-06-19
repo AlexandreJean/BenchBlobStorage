@@ -7,7 +7,8 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 #read input json and create environment variables and source them
 echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
-SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
+#SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
+SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
 workdir=0-azhpc-vmss
 mkdir -p ./$workdir
