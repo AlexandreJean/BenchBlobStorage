@@ -16,8 +16,8 @@ headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[
 echo nodelist.txt creation
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /sbin/ifconfig eth0" | awk '{if ($0 ~ /inet /) {print $3}}' | cut -d "." -f 3,4 | sed 's/\.//' | sort -n > nodelist.txt
 scp $SSH_ARGS -i ./hpcadmin_id_rsa nodelist.txt $admin_user@$headnode_fqdn:
+sh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn ls -l nodelist.txt
 cat nodelist.txt
-
 
 # if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
 # then
