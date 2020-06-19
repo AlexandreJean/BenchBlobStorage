@@ -8,5 +8,9 @@ OUTPUT_File=$5
 
 for i in `seq -w 000 1 $((NUMBER_STG_ACCOUNTs - 1))`
 do
-	az storage account delete -n ${STG_ACCOUNT_PREFIX}${i} -g $rg -y 
+	check=$(az storage account check-name -n ${STG_ACCOUNT_PREFIX}${i} | jq -r '.nameAvailable')
+	if [ $check == false ]
+	then
+		az storage account delete -n ${STG_ACCOUNT_PREFIX}${i} -g $rg -y
+	fi
 done
