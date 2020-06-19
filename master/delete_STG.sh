@@ -11,6 +11,7 @@ do
 	check=$(az storage account check-name -n ${STG_ACCOUNT_PREFIX}${i} | jq -r '.nameAvailable')
 	if [ $check == false ]
 	then
+		echo deleting ${STG_ACCOUNT_PREFIX}${i}
 		az storage account delete -n ${STG_ACCOUNT_PREFIX}${i} -g $rg -y
 	fi
 done
