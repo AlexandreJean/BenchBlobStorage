@@ -56,7 +56,10 @@
                "cndefault",
                "localuser",
                "disable-selinux",
-               "telegraf"
+               "telegraf",
+               "otherpkg",
+               "azcopy",
+               "iozone"
             ]
          }
     },
@@ -90,6 +93,21 @@
         {
           "script": "cndefault.sh",
           "tag": "cndefault",
+          "sudo": true
+        },
+        {
+          "script": "1-pkg_install.sh",
+          "tag": "otherpkg",
+          "sudo": true
+        },
+        {
+          "script": "2-azcopy.sh",
+          "tag": "azcopy",
+          "sudo": true
+        },
+        {
+          "script": "3-iozone.sh",
+          "tag": "iozone",
           "sudo": true
         },
         {

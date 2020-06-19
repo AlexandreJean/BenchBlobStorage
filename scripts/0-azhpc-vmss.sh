@@ -33,6 +33,10 @@ azhpc-init -c ./config \
 chmod 600 ${admin_user}_id_rsa*
 cd vmsscluster
 cp -f ../${admin_user}_id_rsa* .
+echo copy new scripts
+cp ../execute/[123]-*.sh .
+echo ls local directory
+ls -lart
 
 echo -e "azhpc-build :"
 azhpc-build -c config.vmsscluster.json

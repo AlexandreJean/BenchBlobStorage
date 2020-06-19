@@ -1,6 +1,5 @@
 #! /bin/bash
 
-#yum -y upgrade
 yum -y install parallel fio iotop iftop screen git gcc
 
 #Silence cite notification of parallel

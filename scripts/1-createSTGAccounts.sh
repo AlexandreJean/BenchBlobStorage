@@ -10,9 +10,6 @@ echo -e "Reading inputs inside ./inputs-variables.json"
 #SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 
-workdir=0-azhpc-vmss
-mkdir -p ./$workdir
-
 #create rg in my sub
 echo -e "Check existence of rg $resource_group"
 ISRG=$(az group exists -n $resource_group)
@@ -23,10 +20,7 @@ then
 fi
 
 echo -e "Retrieve Public fqdn from vault"
-#headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
-headnode_fqdn=$(az vm show -n headnode \
-                  -g $resource_group \
-                  -d | jq -r ".fqdns")
+headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
 
 echo delete existing STG Accounts if any still present :
 ./master/delete_STG.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
@@ -38,11 +32,9 @@ echo run generate_SAS Here :
 if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
 then
     echo scp $OUTPutSAS to headnode :
-    echo scp $SSH_ARGS -i ./hpcadmin_id_rsa $OUTPutSAS $admin_user@$headnode_fqdn:
     scp $SSH_ARGS -i ./hpcadmin_id_rsa $OUTPutSAS $admin_user@$headnode_fqdn:
 
     echo check presence of $OUTPutSAS on headnode :
-    echo ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "ls -l $OUTPutSAS"
     ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "ls -l $OUTPutSAS"
 else
     echo $OUTPutSAS is empty.
