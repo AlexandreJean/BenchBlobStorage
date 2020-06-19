@@ -1,6 +1,8 @@
 
 **Introduction**
 
+*TO BE REVIEWED*
+
 This set of scripts enable you to benchmark Azure Blob Storage accounts. It creates the accounts, implement a TIG (Telegraph / InfluxDB / Grafana) environment, installs all required packages to run read and writes to and from the storage accounts.
 You'll need to have a [CycleCloud](https://docs.microsoft.com/en-us/azure/cyclecloud/?view=cyclecloud-7) cluster up and runing with SLURM as a preliminary step.
 
