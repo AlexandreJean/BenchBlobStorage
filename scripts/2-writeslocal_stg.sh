@@ -14,9 +14,10 @@ headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[
 
 echo Finish config Grafana
 dashboard_dir=/var/lib/grafana/dashboards/
-scp $SSH_ARGS -i ./hpcadmin_id_rsa master/disksadls_v1.json $admin_user@$headnode_fqdn:$dashboard_dir
+scp $SSH_ARGS -i ./hpcadmin_id_rsa master/disksadls_v1.json $admin_user@$headnode_fqdn:/tmp/
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "sudo cp /tmp/disksadls_v1.json $dashboard_dir"
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "sudo systemctl stop grafana-server"
-ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "systemctl start grafana-server"
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "sudo systemctl start grafana-server"
 
 # Create nodelist file :
 echo nodelist.txt creation
@@ -43,6 +44,6 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 # Copy write script to headnode
 scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/[45]*.sh $admin_user@$headnode_fqdn:/share/data/
 
-ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'"
 
 echo -e "\e[1;34m script done, bye\033[0m"

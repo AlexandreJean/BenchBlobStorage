@@ -88,7 +88,8 @@
                 "variables.install_from",
                 "variables.admin_user",
                 "secret.{{variables.key_vault}}.grafanapwd"
-             ]
+             ],
+             "deps" : ["telegraf_dashboard.json"]
         },
         {
           "script": "cndefault.sh",
