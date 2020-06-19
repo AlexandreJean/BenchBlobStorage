@@ -2,6 +2,8 @@
     "resource_group": "Blob-Benchmarks",
     "numSTGAccounts": "2",
     "numIONodes": "4",
+    "OUTPutSAS": "SAS.keys",
+    "STGAccountsPre": "testbench20200619id",
     "ionodestype": "Standard_HB60rs",
     "key_vault": "devopsvaulthusiana",
     "location": "westeurope",

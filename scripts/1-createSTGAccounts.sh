@@ -23,12 +23,14 @@ fi
 
 echo -e "Retrieve Public fqdn from vault"
 headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
-echo where am I ?
-ls -lart
 
 echo run generate_SAS Here :
+./master/generate_SAS.sh $numSTGAccounts $STGAccountsPre $resource_group $location $OUTPutSAS
 
-echo ssh example :
-ssh $SSH_ARGS -i .ssh/hpcadmin_id_rsa $admin_user@$headnode_fqdn hostname
+echo scp $OUTPutSAS to headnode :
+scp $SSH_ARGS -i ./hpcadmin_id_rsa $OUTPutSAS $admin_user@$headnode_fqdn:
+
+echo check presence of $OUTPutSAS on headnode :
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "ls -l $OUTPutSAS"
 
 echo -e "\e[1;34m script done, bye\033[0m"
