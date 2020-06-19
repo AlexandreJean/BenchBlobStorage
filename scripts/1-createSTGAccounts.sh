@@ -7,8 +7,7 @@ trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 #read input json and create environment variables and source them
 echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
-#SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
-SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 
 #create rg in my sub
 echo -e "Check existence of rg $resource_group"

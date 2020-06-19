@@ -41,7 +41,8 @@
                 "azcli",
                 "nfsserver",
                 "localuser",
-                "grafana"
+                "grafana",
+                "otherpkg"
             ]
         },
         "compute": {
