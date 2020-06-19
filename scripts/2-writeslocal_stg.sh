@@ -23,6 +23,9 @@ scp $SSH_ARGS -i ./hpcadmin_id_rsa nodelist.txt $admin_user@$headnode_fqdn:
 #ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn ls -l nodelist.txt
 #cat nodelist.txt
 
+# Cleanup iozone files from nodes if present
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute sudo rm -f /mnt/resource/iozone*"
+
 # Run iozone :
 echo What is /mnt/resource size ?
 disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /bin/df /mnt/resource" | awk '{if ($0 ~ /resource/) {print $5}}' | sort -n | head -1)
