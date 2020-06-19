@@ -36,8 +36,6 @@ cp -f ../${admin_user}_id_rsa* .
 echo copy new scripts
 mkdir scripts
 cp ../execute/[123]-*.sh scripts/
-echo ls local directory
-ls -lart scripts/
 
 echo -e "azhpc-build :"
 azhpc-build -c config.vmsscluster.json
