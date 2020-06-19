@@ -31,9 +31,9 @@ echo right place ?
 ls -l master/$OUTPutSAS
 cat master/$OUTPutSAS
 
-if [ $(cat $OUTPutSAS | wc -l) -gt 0 ]
+if [ $(cat master/$OUTPutSAS | wc -l) -gt 0 ]
 then
-    echo scp $OUTPutSAS to headnode :
+    echo scp master/$OUTPutSAS to headnode :
     scp $SSH_ARGS -i ./hpcadmin_id_rsa master/$OUTPutSAS $admin_user@$headnode_fqdn:
 
     echo check presence of $OUTPutSAS on headnode :
