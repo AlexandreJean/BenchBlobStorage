@@ -13,7 +13,8 @@ end=$(date --utc -d "+1 year" +%Y-%m-%dT%H:%M:%SZ)
 ## This loop allows you to create up to 1000 storage accounts, dumps SAS Keys to the OUTPUT_File you've set on variable.
 for i in `seq -w 000 1 $((NUMBER_STG_ACCOUNTs - 1))`
 do
-	if [ ${STG_ACCOUNT_PREFIX}${i} == true ]
+	check=$(az storage account check-name -n ${STG_ACCOUNT_PREFIX}${i} | jq -r '.nameAvailable')
+	if [ $check == true ]
 	then
 		echo Creating stg account ${STG_ACCOUNT_PREFIX}$i 
 		echo STG${i}=\"https://${STG_ACCOUNT_PREFIX}${i}.blob.core.windows.net/\"
