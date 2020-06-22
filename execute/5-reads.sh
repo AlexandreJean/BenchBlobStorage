@@ -13,7 +13,7 @@ SRC="/mnt/resource/"
 IPidx=1
 
 ##Loop on Storage accounts :
-for i in `seq -w 000 $STGAcounts`
+for i in `seq -w 000 $((STGAcounts - 1))`
 do
 	stg="STG$i"
 	sas="SAS$i"

@@ -17,7 +17,7 @@ IPidx=1
 ##Loop on Storage accounts :
 # I'm looping on the 5 storage accounts I have created earlier
 
-for i in `seq -w 000 $STGAcounts`
+for i in `seq -w 000 $((STGAcounts - 1))`
 do
 	stg="STG$i"
 	sas="SAS$i"
@@ -40,12 +40,12 @@ do
 	echo
 	echo "------------------"
 	echo host list :
-	echo "   host1 : "$hoststart
-	echo "   host2 : "$hostend
+	echo "   hoststart : "$hoststart
+	echo "   hostend   : "$hostend
 	echo STG Name: $stg
-	echo STG Value : ${!stg}
-	echo SAS Name: $sas
-	echo SAS Value : ${!sas}
+	# echo STG Value : ${!stg}
+	# echo SAS Name: $sas
+	# echo SAS Value : ${!sas}
 	echo "------------------"
 	### DEBUG
 
@@ -60,7 +60,7 @@ do
 		fi
 	done
 	
-	echo Have files been properly uploaded ?
+	echo Have files been properly uploaded in $stg :
 	azcopy list ${!stg}${!sas} | awk -v size=$filesz '{if ($0 ~ /'"$size"'/) {print $2}}' | cut -d "/" -f 1 | sort | uniq -c
 
 done
