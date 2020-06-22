@@ -32,8 +32,8 @@ echo What is /mnt/resource size ?
 disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /bin/df /mnt/resource" | awk '{if ($0 ~ /resource/) {print $5}}' | sort -n | head -1)
 filesz=$(($disksz*80/100/1024/1024))
 
-memsz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/meminfo" | awk '{if ($0 ~ / MemTotal/) {print $3/1024/2014}}' | cut -d "." -f 1)
-cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2)
+memsz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/meminfo" | awk '{if ($0 ~ / MemTotal/) {print $3/1024/2014}}' | cut -d "." -f 1 | uniq)
+cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2 | uniq)
 if [ $(( $memsz * 2 )) -lt $filesz ]
 then
     filesz=$(( $memsz * 2 ))

@@ -27,7 +27,7 @@ scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/taskset.sh $admin_user@$headnode_fqdn
 # Now have to run reads.sh - are scripts present ?
 echo check if scripts are present :
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/' | dshbak -c"
-cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2)
+cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2 | uniq)
 
 # Ideally here I'd need to have network bandwidth of the type of node benchmarked so I can load the stg accounts properly.
 
