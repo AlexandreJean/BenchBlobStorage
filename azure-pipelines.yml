@@ -7,7 +7,7 @@ trigger:
 - master
 
 jobs:
-- deployement: Default42
+- job: Default42
   timeoutInMinutes : 360
   pool:
    vmImage: 'ubuntu-latest'
