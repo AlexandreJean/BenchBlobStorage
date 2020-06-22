@@ -61,6 +61,6 @@ do
 	done
 	
 	echo Have files been properly uploaded ?
-	azcopy list ${!stg}${!sas} | awk -v size=$filesz '{if ($0 ~ /'"$size"'/) {print $2}}' | cut -d "/" -f 1 | uniq -c
+	azcopy list ${!stg}${!sas} | awk -v size=$filesz '{if ($0 ~ /'"$size"'/) {print $2}}' | cut -d "/" -f 1 | sort | uniq -c
 
 done

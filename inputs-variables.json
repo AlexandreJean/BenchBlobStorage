@@ -1,7 +1,7 @@
 {
     "resource_group": "Blob-Benchmarks",
-    "numSTGAccounts": "9",
-    "numIONodes": "18",
+    "numSTGAccounts": "5",
+    "numIONodes": "15",
     "OUTPutSAS": "SAS.keys",
     "STGAccountsPre": "testbench20200619id",
     "ionodestype": "Standard_H16",
