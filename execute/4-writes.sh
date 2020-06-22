@@ -5,6 +5,7 @@
 
 STGAcounts=$1
 indent=$2
+filesz=$3
 
 ID=`/usr/sbin/ifconfig eth0 | awk '{if ($0 ~ /inet /) {print $2}}' | cut -d "." -f 3,4`
 ID2=`echo $ID | sed 's/\.//'`
@@ -60,4 +61,4 @@ done
 
 echo Have files been properly uploaded ?
 
-azcopy list ${!stg}${!sas} | awk '{if ($0 ~ /191/) {print $2}}' | cut -d "/" -f 1 | uniq -c
+azcopy list ${!stg}${!sas} | awk -v size=$filesz '{if ($0 ~ /'"$size"'/) {print $2}}' | cut -d "/" -f 1 | uniq -c
