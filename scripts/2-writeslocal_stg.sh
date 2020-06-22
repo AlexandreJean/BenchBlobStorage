@@ -33,15 +33,17 @@ disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f 
 filesz=$(($disksz*80/100/1024/1024))
 
 memsz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/meminfo" | awk '{if ($0 ~ / MemTotal/) {print $3/1024/2014}}' | cut -d "." -f 1 | uniq)
-cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2 | uniq)
+cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo" | awk '{if ($0 ~ /processor/) {print $1}}' | sort  | uniq -c | awk '{print $1}' | head -1)
+
+echo DISK Size = ${disksz}B
+echo file size = ${filesz}GB
+echo Mem Size  = ${memsz}GB
+
 if [ $(( $memsz * 2 )) -lt $filesz ]
 then
     filesz=$(( $memsz * 2 ))
 fi
 
-echo DISK Size = $disksz
-echo file size = $filesz
-echo Mem Size  = ${memsz}GB
 echo Using only ${filesz}GB
 
 echo Create empty files in /mnt/resource directory
