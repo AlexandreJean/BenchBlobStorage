@@ -31,13 +31,13 @@ jobs:
               # Install the VMSS-Cluster
               echo Run the first script
               /bin/bash ./scripts/0-azhpc-vmss.sh
-          - task: AzureCLI@2
-          inputs:
-            azureSubscription: 'devopshusiana'
-            scriptType: 'bash'
-            scriptLocation: 'inlineScript'
-            inlineScript: |
-              /bin/bash ./scripts/1-createSTGAccounts.sh
+          # - task: AzureCLI@2
+          # inputs:
+          #   azureSubscription: 'devopshusiana'
+          #   scriptType: 'bash'
+          #   scriptLocation: 'inlineScript'
+          #   inlineScript: |
+          #     /bin/bash ./scripts/1-createSTGAccounts.sh
   # - task: AzureCLI@2
   #   inputs:
   #     azureSubscription: 'devopshusiana'
