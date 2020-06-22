@@ -40,7 +40,13 @@ steps:
     scriptLocation: 'inlineScript'
     inlineScript: |
       /bin/bash ./scripts/2-writeslocal_stg.sh
-
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'devopshusiana'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      /bin/bash ./scripts/3-readstg_local.sh
 #TO THE END - deleting everything.
 # - task: AzureCLI@2
 #   inputs:
