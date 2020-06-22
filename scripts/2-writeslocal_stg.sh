@@ -52,8 +52,8 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 
 # Start uploading files to Azure storage accounts :
 echo start upload to stg accounts :
-div=$(( $numIONodes / $numSTGAccount ))
-echo $(($div - 1))
+div=$(( $numIONodes / $numSTGAccounts ))
+echo $(( $div - 1 ))
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh ./data/4-writes.sh $numSTGAccounts $((div - 1))'"
 
 echo -e "\e[1;34m script done, bye\033[0m"
