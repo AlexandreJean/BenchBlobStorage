@@ -42,10 +42,10 @@ steps:
       /bin/bash ./scripts/2-writeslocal_stg.sh
 
 #TO THE END - deleting everything.
-- task: AzureCLI@2
-  inputs:
-    azureSubscription: 'devopshusiana'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: |
-      /bin/bash ./scripts/10-delete-rg.sh
+# - task: AzureCLI@2
+#   inputs:
+#     azureSubscription: 'devopshusiana'
+#     scriptType: 'bash'
+#     scriptLocation: 'inlineScript'
+#     inlineScript: |
+#       /bin/bash ./scripts/10-delete-rg.sh
