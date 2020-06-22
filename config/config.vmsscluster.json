@@ -42,7 +42,8 @@
                 "nfsserver",
                 "localuser",
                 "grafana",
-                "otherpkg"
+                "otherpkg",
+                "disableagent"
             ]
         },
         "compute": {
@@ -61,7 +62,8 @@
                "telegraf",
                "otherpkg",
                "azcopy",
-               "iozone"
+               "iozone",
+               "disableagent"
             ]
          }
     },
@@ -69,6 +71,11 @@
         {
             "script": "disable-selinux.sh",
             "tag": "disable-selinux",
+            "sudo": true
+        },
+        {
+            "script": "disableagent.sh",
+            "tag": "disableagent",
             "sudo": true
         },
         {

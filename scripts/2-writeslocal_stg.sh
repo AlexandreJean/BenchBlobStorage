@@ -32,6 +32,10 @@ echo What is /mnt/resource size ?
 disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /bin/df /mnt/resource" | awk '{if ($0 ~ /resource/) {print $5}}' | sort -n | head -1)
 filesz=$(($disksz*80/100/1024/1024))
 
+#Temporary
+filesz=$(($disksz*80/100/1024/1024))
+#Temporary
+
 echo DISK Size = $disksz - Using only ${filesz}GB
 
 echo Create empty files in /mnt/resource directory
