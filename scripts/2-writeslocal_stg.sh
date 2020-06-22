@@ -52,7 +52,7 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 
 # Ideally here I'd need to have network bandwidth of the type of node benchmarked so I can load the stg accounts properly.
 
-div=$numIONodes/$numSTGAccount
+div=$(($numIONodes/$numSTGAccount))
 echo $div - 1
 echo $(($numIONodes/$numSTGAccount - 1))
 #4-writes.sh $numSTGAccounts $numIONodes
