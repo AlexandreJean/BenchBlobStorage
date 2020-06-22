@@ -1,10 +1,10 @@
 {
     "resource_group": "Blob-Benchmarks",
-    "numSTGAccounts": "5",
-    "numIONodes": "15",
+    "numSTGAccounts": "10",
+    "numIONodes": "10",
     "OUTPutSAS": "SAS.keys",
     "STGAccountsPre": "testbench20200619id",
-    "ionodestype": "Standard_H16",
+    "ionodestype": "Standard_D64s_v3",
     "key_vault": "devopsvaulthusiana",
     "location": "westeurope",
     "spn_name": "devopshusiana",

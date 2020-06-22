@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Sourcing SAS.keys created earlier with stg accounts
 . /data/SAS.keys 
 
 STGAcounts=$1
@@ -22,6 +23,7 @@ do
 	hostend=`head -n $(( 10#$i + $IPidx )) /data/nodelist.txt | tail -1`
 
 	##Loop on number of files to read from the storage accounts :
+	##4 x THR per azcopy task seems like a good option.
 	THR=0
 	for j in `seq 0 $(( $nbfiles - 1 ))`
 	do
