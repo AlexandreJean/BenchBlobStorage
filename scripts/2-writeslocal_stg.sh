@@ -50,7 +50,10 @@ scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/[45]*.sh $admin_user@$headnode_fqdn:/
 # Now have to run writes.sh ... see what's going on ... 
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'"
 
-echo $(($numIONodes / $numSTGAccount - 1))
+# Ideally here I'd need to have network bandwidth of the type of node benchmarked so I can load the stg accounts properly.
+
+echo $numIONodes/$numSTGAccount - 1
+echo $(($numIONodes/$numSTGAccount - 1))
 #4-writes.sh $numSTGAccounts $numIONodes
 
 echo -e "\e[1;34m script done, bye\033[0m"
