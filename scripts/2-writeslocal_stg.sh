@@ -32,9 +32,10 @@ echo What is /mnt/resource size ?
 disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /bin/df /mnt/resource" | awk '{if ($0 ~ /resource/) {print $5}}' | sort -n | head -1)
 filesz=$(($disksz*80/100/1024/1024))
 
+#memsz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/meminfo" | awk '{if ($0 ~ /^MemTotal/) {print $3/1024/2014}}' | cut -d "." -f 1)
 #Temporary
 filesz=$(($disksz*10/100/1024/1024))
-#Temporary
+#/Temporary
 
 echo DISK Size = $disksz - Using only ${filesz}GB
 
