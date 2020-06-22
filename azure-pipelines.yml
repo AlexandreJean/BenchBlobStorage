@@ -9,8 +9,8 @@ trigger:
 jobs:
   - job: Default
     timeoutInMinutes : 360
-  pool:
-    vmImage: 'ubuntu-latest'
+    pool:
+      vmImage: 'ubuntu-latest'
   steps:
   - task: AzureCLI@2
     inputs:
