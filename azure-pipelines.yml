@@ -49,7 +49,7 @@ jobs:
       scriptLocation: 'inlineScript'
       inlineScript: |
         /bin/bash ./scripts/3-readstg_local.sh
-#TO THE END - deleting everything.
+#TO THE END - deleting everything (The resource group and its content).
   - task: AzureCLI@2
     inputs:
       azureSubscription: 'devopshusiana'
