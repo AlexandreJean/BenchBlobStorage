@@ -4,7 +4,7 @@
     "numIONodes": "4",
     "OUTPutSAS": "SAS.keys",
     "STGAccountsPre": "testbench20200619id",
-    "ionodestype": "Standard_HB60rs",
+    "ionodestype": "Standard_H16",
     "key_vault": "devopsvaulthusiana",
     "location": "westeurope",
     "spn_name": "devopshusiana",
