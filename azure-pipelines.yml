@@ -11,8 +11,8 @@ jobs:
   timeoutInMinutes : 360
   pool:
    vmImage: 'ubuntu-latest'
-    strategy:
-     runOnce:
+  strategy:
+    runOnce:
       deploy:
        steps:
        - task: AzureCLI@2
