@@ -8,7 +8,7 @@ trigger:
 
 jobs:
   - job: Default
-  timeoutInMinutes : 360
+    timeoutInMinutes : 360
   pool:
     vmImage: 'ubuntu-latest'
   steps:
