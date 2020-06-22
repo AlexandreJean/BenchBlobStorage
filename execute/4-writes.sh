@@ -57,3 +57,7 @@ do
 		fi
 	done
 done
+
+echo Have files been properly uploaded ?
+
+azcopy list ${!stg}${!sas} | awk '{if ($0 ~ /191/) {print $2}}' | cut -d "/" -f 1 | uniq -c
