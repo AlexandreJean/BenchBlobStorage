@@ -32,12 +32,16 @@ echo What is /mnt/resource size ?
 disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute /bin/df /mnt/resource" | awk '{if ($0 ~ /resource/) {print $5}}' | sort -n | head -1)
 filesz=$(($disksz*80/100/1024/1024))
 
-#memsz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/meminfo" | awk '{if ($0 ~ /^MemTotal/) {print $3/1024/2014}}' | cut -d "." -f 1)
-#Temporary
-filesz=$(($disksz*10/100/1024/1024))
-#/Temporary
+memsz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/meminfo" | awk '{if ($0 ~ / MemTotal/) {print $3/1024/2014}}' | cut -d "." -f 1)
+cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2)
+if [ $(( $memsz * 2 )) -lt $filesz ]
+then
+    filesz=$(( $memsz * 2 ))
+fi
 
-echo DISK Size = $disksz - Using only ${filesz}GB
+echo DISK Size = $disksz
+echo Mem Size  = ${$memsz}GB
+echo Using only ${filesz}GB
 
 echo Create empty files in /mnt/resource directory
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'cd /mnt/resource; iozone -i 0 -i 1 -+n -r 1M -t 1 -s ${filesz}g -w | grep \"Children see throughput for\"'"
@@ -54,7 +58,9 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 # Start uploading files to Azure storage accounts :
 echo start upload to stg accounts :
 div=$(( $numIONodes / $numSTGAccounts ))
-echo $(( $div - 1 ))
-ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/4-writes.sh $numSTGAccounts $((div - 1)) $filesz'"
+nbfiles=$(( $cpucnt / 4 ))
+echo nbfiles = $nbfiles
+
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/4-writes.sh $numSTGAccounts $((div - 1)) $filesz $nbfiles'"
 
 echo -e "\e[1;34m script done, bye\033[0m"

@@ -27,13 +27,14 @@ scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/taskset.sh $admin_user@$headnode_fqdn
 # Now have to run reads.sh - are scripts present ?
 echo check if scripts are present :
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/' | dshbak -c"
+cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute cat /proc/cpuinfo | grep processor -c" | cut -d " " -f 2)
 
 # Ideally here I'd need to have network bandwidth of the type of node benchmarked so I can load the stg accounts properly.
 
 # Start downloading files from Azure storage accounts :
 echo start download from stg accounts :
 div=$(( $numIONodes / $numSTGAccounts ))
-echo $(( $div - 1 ))
-ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/5-reads.sh $numSTGAccounts $((div - 1))'"
+nbfiles=$(( $cpucnt / 4 ))
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/5-reads.sh $numSTGAccounts $((div - 1)) $nbfiles'"
 
 echo -e "\e[1;34m script done, bye\033[0m"
