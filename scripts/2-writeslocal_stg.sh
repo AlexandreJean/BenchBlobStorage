@@ -33,7 +33,7 @@ disksz=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f 
 filesz=$(($disksz*80/100/1024/1024))
 
 #Temporary
-filesz=$(($disksz*80/100/1024/1024))
+filesz=$(($disksz*10/100/1024/1024))
 #Temporary
 
 echo DISK Size = $disksz - Using only ${filesz}GB
