@@ -40,7 +40,8 @@ then
 fi
 
 echo DISK Size = $disksz
-echo Mem Size  = ${$memsz}GB
+echo file size = $filesz
+echo Mem Size  = ${memsz}GB
 echo Using only ${filesz}GB
 
 echo Create empty files in /mnt/resource directory
@@ -59,6 +60,7 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 echo start upload to stg accounts :
 div=$(( $numIONodes / $numSTGAccounts ))
 nbfiles=$(( $cpucnt / 4 ))
+echo cpucount = $cpucnt
 echo nbfiles = $nbfiles
 
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/4-writes.sh $numSTGAccounts $((div - 1)) $filesz $nbfiles'"
