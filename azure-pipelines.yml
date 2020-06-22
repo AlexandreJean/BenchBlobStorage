@@ -7,48 +7,51 @@ trigger:
 - master
 
 jobs:
-  - job: Default
+  - deployement: Default42
     timeoutInMinutes : 360
     pool:
       vmImage: 'ubuntu-latest'
-  steps:
-  - task: AzureCLI@2
-    inputs:
-      azureSubscription: 'devopshusiana'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        # Clone Azure-hpc
-        git clone https://github.com/Azure/azurehpc.git
-        # retrieve rsa-keys from KeyVault
-        echo Fetching rsapub
-        az keyvault secret download --name idrsadevopspub --vault-name devopsvaulthusiana -f hpcadmin_id_rsa.pub
-        echo Fetching rsapriv
-        az keyvault secret download --name idrsadevops --vault-name devopsvaulthusiana -f hpcadmin_id_rsa
-        # Install the VMSS-Cluster
-        echo Run the first script
-        /bin/bash ./scripts/0-azhpc-vmss.sh
-  - task: AzureCLI@2
-    inputs:
-      azureSubscription: 'devopshusiana'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        /bin/bash ./scripts/1-createSTGAccounts.sh
-  - task: AzureCLI@2
-    inputs:
-      azureSubscription: 'devopshusiana'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        /bin/bash ./scripts/2-writeslocal_stg.sh
-  - task: AzureCLI@2
-    inputs:
-      azureSubscription: 'devopshusiana'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: |
-        /bin/bash ./scripts/3-readstg_local.sh
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'devopshusiana'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: |
+              # Clone Azure-hpc
+              git clone https://github.com/Azure/azurehpc.git
+              # retrieve rsa-keys from KeyVault
+              echo Fetching rsapub
+              az keyvault secret download --name idrsadevopspub --vault-name devopsvaulthusiana -f hpcadmin_id_rsa.pub
+              echo Fetching rsapriv
+              az keyvault secret download --name idrsadevops --vault-name devopsvaulthusiana -f hpcadmin_id_rsa
+              # Install the VMSS-Cluster
+              echo Run the first script
+              /bin/bash ./scripts/0-azhpc-vmss.sh
+            - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'devopshusiana'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                /bin/bash ./scripts/1-createSTGAccounts.sh
+  # - task: AzureCLI@2
+  #   inputs:
+  #     azureSubscription: 'devopshusiana'
+  #     scriptType: 'bash'
+  #     scriptLocation: 'inlineScript'
+  #     inlineScript: |
+  #       /bin/bash ./scripts/2-writeslocal_stg.sh
+  # - task: AzureCLI@2
+  #   inputs:
+  #     azureSubscription: 'devopshusiana'
+  #     scriptType: 'bash'
+  #     scriptLocation: 'inlineScript'
+  #     inlineScript: |
+  #       /bin/bash ./scripts/3-readstg_local.sh
 #TO THE END - deleting everything.
 # - task: AzureCLI@2
 #   inputs:
