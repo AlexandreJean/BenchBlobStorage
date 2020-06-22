@@ -47,7 +47,10 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 # Copy write script to headnode
 scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/[45]*.sh $admin_user@$headnode_fqdn:/share/data/
 
-# No have to run writes.sh ... see what's going on ... 
-#ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'"
+# Now have to run writes.sh ... see what's going on ... 
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'"
+
+echo $(($numIONodes / $numSTGAccount - 1))
+#4-writes.sh $numSTGAccounts $numIONodes
 
 echo -e "\e[1;34m script done, bye\033[0m"
