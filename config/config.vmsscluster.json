@@ -51,6 +51,7 @@
             "instances": "variables.instances",
             "availability_set": "compute",
             "image": "variables.hpc_image",
+            "os_storage_sku": "Standard_LRS",
             "subnet": "admin",
             "tags": [
                "nfsclient",
