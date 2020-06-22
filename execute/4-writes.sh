@@ -4,7 +4,7 @@
 . /data/SAS.keys 
 
 STGAcounts=$1
-numIONodes=$2
+indent=$2
 
 ID=`/usr/sbin/ifconfig eth0 | awk '{if ($0 ~ /inet /) {print $2}}' | cut -d "." -f 3,4`
 ID2=`echo $ID | sed 's/\.//'`
@@ -21,8 +21,7 @@ do
 	## Host1 is the first node for a storage account, starts at first line 
 	hoststart=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/BenchBlobStorage/execute/nodelist.txt | tail -1`
 	## If you wish to have 2 x nodes per storage account then increase by 1, if you want more nodes, incread by more than 1
-	indent=$(($numIONodes / $STGAcounts - 1))
-	IPidx=$(( $IPidx +  ))
+	IPidx=$(( $IPidx + $indent ))
 	## host2 is the last node for a storage account, ends at first line + IPidx
 	hostend=`head -n $(( 10#$i + $IPidx )) /mnt/exports/shared/home/husiana/BenchBlobStorage/execute/nodelist.txt | tail -1`
 

@@ -39,22 +39,21 @@ filesz=$(($disksz*10/100/1024/1024))
 echo DISK Size = $disksz - Using only ${filesz}GB
 
 echo Create empty files in /mnt/resource directory
-# [hpcadmin@compute000001 resource]$ iozone -i 0 -i 1 -+n -r 1M -t 1 -s 1g -w | grep "Children see throughput for"
-#         Children see throughput for  1 initial writers  = 1680825.12 kB/sec
-#         Children see throughput for  1 readers          = 6907209.00 kB/sec
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'cd /mnt/resource; iozone -i 0 -i 1 -+n -r 1M -t 1 -s ${filesz}g -w | grep \"Children see throughput for\"'"
 
 # Copy write script to headnode
 scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/[45]*.sh $admin_user@$headnode_fqdn:/share/data/
 
-# Now have to run writes.sh ... see what's going on ... 
-ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/'"
+# Now have to run writes.sh - are scripts present ?
+echo check if scripts are present :
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/' | dshbak -c"
 
 # Ideally here I'd need to have network bandwidth of the type of node benchmarked so I can load the stg accounts properly.
 
+# Start uploading files to Azure storage accounts :
+echo start upload to stg accounts :
 div=$(($numIONodes/$numSTGAccount))
-echo $div - 1
-echo $(($numIONodes/$numSTGAccount - 1))
-#4-writes.sh $numSTGAccounts $numIONodes
+echo $(($div - 1))
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'ls -lart /data/4-writes.sh $numSTGAccounts $((div - 1))'"
 
 echo -e "\e[1;34m script done, bye\033[0m"
