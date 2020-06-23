@@ -12,6 +12,10 @@ ID2=`echo $ID | sed 's/\.//'`
 CONTAINER="input01-"$ID2
 SRC="/mnt/resource/"
 IPidx=1
+rm -f joblist*
+
+echo in directory
+pwd
 
 ##Loop on Storage accounts :
 for i in `seq -w 000 $((STGAcounts - 1))`
@@ -32,12 +36,10 @@ do
 		do
 			if [[ $ID2 -ge $hoststart && $ID2 -le $hostend ]]
 			then
-				echo "sudo taskset -c $((THR))-$((THR+3)) azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas} /dev/null" >> joblist-$$.txt
+				echo "taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;" >> joblist-$$.txt
 			fi
 			THR=$THR+4
 		done
 		cat joblist-$$.txt
 	done | parallel -j $(( $nbfiles - 1 )) :::: joblist-$$.txt 
 done
-
-hostname; ls -lart job*
