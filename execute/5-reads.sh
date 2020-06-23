@@ -38,3 +38,5 @@ do
 		cat joblist-$$.txt
 	done | parallel -j $(( $nbfiles - 1 )) :::: joblist-$$.txt 
 done
+
+hostname; ls -lart job*
