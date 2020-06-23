@@ -50,4 +50,4 @@ do
 	do
 		echo $task >> joblist-$$.txt
 	done
-done | parallel -j $(( $nbfiles - 1 )) :::: joblist-$$.txt
+done | parallel -j $nbfiles :::: joblist-$$.txt
