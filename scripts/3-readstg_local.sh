@@ -9,11 +9,7 @@ echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
 SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 
-echo before export
-perl -e exit
 export LC_ALL=C
-echo after export
-perl -e exit
 
 echo -e "Retrieve Public fqdn from vault"
 headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
