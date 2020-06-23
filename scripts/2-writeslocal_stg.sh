@@ -9,7 +9,7 @@ echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
 SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 
-if [ $(az keyvault secret download --vault-name $key_vault --name lock) ]
+if [ $(az keyvault secret show --vault-name $key_vault --name lock | jq -r ".value") ]
 then
     echo EXIT as lock is 1 meaning the stg accounts are here and fully loaded
     exit
