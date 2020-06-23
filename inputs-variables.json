@@ -2,7 +2,7 @@
     "resource_group": "Blob-Benchmarks",
     "numSTGAccounts": "6",
     "numIONodes": "18",
-    "readIterations": "2",
+    "readIterations": "4",
     "OUTPutSAS": "SAS.keys",
     "STGAccountsPre": "testbench20200619id",
     "ionodestype": "Standard_H16",

@@ -24,7 +24,6 @@ echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
 
-# ADD numIONodes to it - cool:
 echo -e "Config azhpc" 
 azhpc-init -c ./config \
           -d vmsscluster \
