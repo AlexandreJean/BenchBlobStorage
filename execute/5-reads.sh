@@ -24,14 +24,15 @@ do
 
 	##Loop on number of files to read from the storage accounts :
 	##4 x THR per azcopy task seems like a good option.
-	THR=0
+
 	for cnt in `seq 0 1`
 	do
+		THR=0
 		for j in `seq 0 $(( $nbfiles - 1 ))`
 		do
 			if [[ $ID2 -ge $hoststart && $ID2 -le $hostend ]]
 			then
-				echo "taskset -c $((THR))-$((THR+3)) azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas} /dev/null" >> joblist-$$.txt
+				echo "sudo taskset -c $((THR))-$((THR+3)) azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas} /dev/null" >> joblist-$$.txt
 			fi
 			THR=$THR+4
 		done
