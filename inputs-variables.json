@@ -1,6 +1,6 @@
 {
     "resource_group": "Blob-Benchmarks",
-    "numSTGAccounts": "9",
+    "numSTGAccounts": "6",
     "numIONodes": "18",
     "readIterations": "2",
     "OUTPutSAS": "SAS.keys",
