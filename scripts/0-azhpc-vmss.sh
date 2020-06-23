@@ -21,9 +21,8 @@ then
 fi
 
 echo TEST
-cat .bashrc
-grep LANG .bashrc
-perl -e exit
+ls -lart
+grep LANG .*
 echo /TEST
 
 
