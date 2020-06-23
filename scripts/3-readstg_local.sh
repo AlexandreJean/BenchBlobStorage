@@ -24,7 +24,6 @@ ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONod
 
 # Copy write / read /taskset scripts to headnode
 scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/[45]*.sh $admin_user@$headnode_fqdn:/share/data/
-scp $SSH_ARGS -i ./hpcadmin_id_rsa execute/taskset.sh $admin_user@$headnode_fqdn:/share/data/
 
 # Now have to run reads.sh - are scripts present ?
 echo check if scripts are present :

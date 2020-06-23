@@ -6,17 +6,13 @@
 STGAcounts=$1
 indent=$2
 nbfiles=$3
-Itarations=$4
+Iterations=$4
 
 ID=`/usr/sbin/ifconfig eth0 | awk '{if ($0 ~ /inet /) {print $2}}' | cut -d "." -f 3,4`
 ID2=`echo $ID | sed 's/\.//'`
 CONTAINER="input01-"$ID2
 SRC="/mnt/resource/"
 IPidx=1
-rm -f joblist*
-
-echo in directory
-pwd
 
 ##Loop on Storage accounts :
 for i in `seq -w 000 $((STGAcounts - 1))`
@@ -44,7 +40,7 @@ do
 				then
 					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
 				else
-					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
+					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null"
 				fi
 			fi
 			THR=$THR+4
