@@ -31,7 +31,7 @@ do
 		do
 			if [[ $ID2 -ge $hoststart && $ID2 -le $hostend ]]
 			then
-				echo taskset -c $((THR))-$((THR+3)) azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas} /dev/null >> joblist-$$.txt
+				echo "taskset -c $((THR))-$((THR+3)) azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas} /dev/null" >> joblist-$$.txt
 			fi
 			THR=$THR+4
 		done
