@@ -6,6 +6,7 @@
 STGAcounts=$1
 indent=$2
 nbfiles=$3
+Itarations=$4
 
 ID=`/usr/sbin/ifconfig eth0 | awk '{if ($0 ~ /inet /) {print $2}}' | cut -d "." -f 3,4`
 ID2=`echo $ID | sed 's/\.//'`
@@ -29,7 +30,7 @@ do
 	##Loop on number of files to read from the storage accounts :
 	##4 x THR per azcopy task seems like a good option.
 
-	for cnt in `seq 0 1`
+	for cnt in `seq 1 $Iterations`
 	do
 		THR=0
 		for j in `seq 0 $(( $nbfiles - 1 ))`

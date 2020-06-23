@@ -37,6 +37,6 @@ cpucnt=$(ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f 
 echo start download from stg accounts :
 div=$(( $numIONodes / $numSTGAccounts ))
 nbfiles=$(( $cpucnt / 4 ))
-ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/5-reads.sh $numSTGAccounts $((div - 1)) $nbfiles'"
+ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/5-reads.sh $numSTGAccounts $((div - 1)) $nbfiles $readIterations'"
 
 echo -e "\e[1;34m script done, bye\033[0m"
