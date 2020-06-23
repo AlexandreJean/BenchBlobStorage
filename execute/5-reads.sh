@@ -29,7 +29,7 @@ do
 
 	##Loop on number of files to read from the storage accounts :
 	##4 x THR per azcopy task seems like a good option.
-
+	array=()
 	for cnt in `seq 1 $Iterations`
 	do
 		THR=0
@@ -37,10 +37,21 @@ do
 		do
 			if [[ $ID2 -ge $hoststart && $ID2 -le $hostend ]]
 			then
-				echo "taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;" >> joblist-$$.txt
+				if [[ $cnt -eq 0 ]]
+				then
+					array[$j]="taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
+				elif [[ $cnt -lt $Iterations ]]
+				then
+					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
+				else
+					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
+				fi
 			fi
 			THR=$THR+4
 		done
-		cat joblist-$$.txt
-	done | parallel -j $(( $nbfiles - 1 )) :::: joblist-$$.txt 
-done
+	done  
+	for task in "${array[@]}"
+	do
+		echo $task >> joblist-$$.txt
+	done
+done | parallel -j $(( $nbfiles - 1 )) :::: joblist-$$.txt
