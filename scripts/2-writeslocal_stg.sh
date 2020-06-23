@@ -9,6 +9,12 @@ echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
 SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 
+if [ $(az keyvault secret download --vault-name $key_vault --name lock) ]
+then
+    echo EXIT as lock is 1 meaning the stg accounts are here and fully loaded
+    exit
+fi
+
 echo -e "Retrieve Public fqdn from vault"
 headnode_fqdn=$(az network public-ip list -g $resource_group -o json | jq -r ".[0].dnsSettings.fqdn")
 
@@ -66,5 +72,8 @@ echo cpucount = $cpucnt
 echo nbfiles = $nbfiles
 
 ssh $SSH_ARGS -i ./hpcadmin_id_rsa $admin_user@$headnode_fqdn "pdsh -f $numIONodes -w ^azhpc_install_config.vmsscluster/hostlists/compute 'sh /data/4-writes.sh $numSTGAccounts $((div - 1)) $filesz $nbfiles'"
+
+# Once all stg accounts are ready and loaded, we can set a lock to 1 so we don't re-do this task unless we complete the pipeline, deleting the RG
+az keyvault secret set --vault-name $key_vault --name lock --value 1
 
 echo -e "\e[1;34m script done, bye\033[0m"

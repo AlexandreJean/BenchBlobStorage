@@ -9,6 +9,14 @@ echo -e "Reading inputs inside ./inputs-variables.json"
 . ./scripts/read_inputs.sh ./inputs-variables.json
 SSH_ARGS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -q"
 
+# if stg accounts file already here, do not re-create them :
+
+if [ $(az keyvault secret download --vault-name $key_vault --name lock) ]
+then
+    echo EXIT as lock is 1 meaning the stg accounts are here and fully loaded
+    exit
+fi
+
 #create rg in my sub
 echo -e "Check existence of rg $resource_group"
 ISRG=$(az group exists -n $resource_group)
