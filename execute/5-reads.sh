@@ -35,5 +35,6 @@ do
 			fi
 			THR=$THR+4
 		done
+		cat joblist-$$.txt
 	done | parallel -j $(( $nbfiles - 1 )) :::: joblist-$$.txt 
 done
