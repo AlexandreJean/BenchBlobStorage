@@ -35,12 +35,12 @@ do
 			then
 				if [[ $cnt -eq 0 ]]
 				then
-					array[$j]="taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
+					array[$j]="taskset -c $((THR))-$((THR+3)) /usr/local/bin/azcopy copy \"${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
 				elif [[ $cnt -lt $Iterations ]]
 				then
-					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
+					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) /usr/local/bin/azcopy copy \"${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null;"
 				else
-					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) \"/usr/local/bin/azcopy copy ${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null"
+					array[$j]=${array[$j]}"taskset -c $((THR))-$((THR+3)) /usr/local/bin/azcopy copy \"${!stg}$CONTAINER/iozone.DUMMY.${j}${!sas}\" /dev/null"
 				fi
 			fi
 			THR=$THR+4
