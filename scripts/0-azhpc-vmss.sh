@@ -20,6 +20,13 @@ then
     az group create -n $resource_group -l $location >> ./$workdir/$workdir.log 2>/dev/null
 fi
 
+echo TEST
+cat .bashrc
+grep LANG .bashrc
+perl -e exit
+echo /TEST
+
+
 echo -e "Install azhpc"
 #init az-hpc
 . ./azurehpc/install.sh
